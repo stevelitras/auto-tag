@@ -40,6 +40,11 @@ class AutotagS3Worker extends AutotagDefaultWorker {
         });
       } catch (e) {
         reject(e);
+        if (e.name === 'NoSuchTagSet') {
+          resolve([]);
+        } else {
+          reject(e);
+        }
       }
     });
   }
